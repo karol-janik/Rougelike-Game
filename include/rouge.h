@@ -7,7 +7,20 @@
 #include <ncurses.h>
 #include <time.h>
 #include <math.h>
-typedef struct Position{
+
+typedef struct Level
+{
+    char ** tiles;
+    int level;
+    int numberOfRooms;
+    struct Room ** rooms;
+    struct Monster ** monsters;
+    int numberOfMonsters;
+
+}Level;
+
+typedef struct Position
+{
     int x;
     int y;
     // TILE_TYPE taile;
@@ -34,12 +47,16 @@ typedef struct Player
 
 
 int screenSetUp();
-Room ** mapSetUp();
-Player * playerSetUp();
-int handelInput(int input, Player * user);
-int checkPosition(int newY, int newX, Player * unit);
-int playerMove(int y, int x, Player * user);
 
+/* level/map functions */
+Room ** roomSetUp();
+char ** saveLevelPositions();
+
+/* player functions */
+Player * playerSetUp();
+Position * handelInput(int input, Player * user);
+int checkPosition(Position * newPosition, Player * unit,char ** level );
+int playerMove(Position * newPosition, Player * user, char ** level);
 
 
 /* room functions */
