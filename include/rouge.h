@@ -8,15 +8,14 @@
 #include <time.h>
 #include <math.h>
 
-typedef struct Level
+typedef struct  Level
 {
-    char ** tiles;
+    char  ** tiles;
     int level;
     int numberOfRooms;
-    struct Room ** rooms;
-    struct Monster ** monsters;
+    struct Room ** rooms; 
+    struct Monsters ** monsters;
     int numberOfMonsters;
-
 }Level;
 
 typedef struct Position
@@ -45,12 +44,27 @@ typedef struct Player
     //Room * room;
 }Player;
 
+typedef struct Monster
+{
+    char symbol;                // represent the monster at map
+    int health;
+    int attack;
+    int speed;
+    int defence;
+    int pathfinding;
+    Position position;
+    
+}Monster;
+
+
 
 int screenSetUp();
 
 /* level/map functions */
-Room ** roomSetUp();
+Level * createLevel();
+Room ** roomsSetUp();
 char ** saveLevelPositions();
+
 
 /* player functions */
 Player * playerSetUp();
@@ -63,5 +77,11 @@ int playerMove(Position * newPosition, Player * user, char ** level);
 Room * createRoom(int x, int y, int height, int width);
 int drawRoom(Room * room);
 int connectDoors(Position * doorOne, Position * doorTwo);
+
+/* monster functions */
+int addMonsters(Level * level);
+Monster * selectMonster(int level);
+Monster * createMonster(char symbol, int health, int attack, int speed, int defence, int pathfinding);
+int setStartingPosition(Monster * monster, Room * room);
 
 #endif

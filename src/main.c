@@ -16,7 +16,7 @@ int main(int argc, const char * argv[]) {
     
     screenSetUp();
 
-    level = createLevel();
+    level = createLevel(3);
     
     user = playerSetUp();
 
@@ -36,7 +36,6 @@ int main(int argc, const char * argv[]) {
 int screenSetUp()
 {
     initscr();
-    printw("Hello wordl!");
     noecho();
     refresh();
     
