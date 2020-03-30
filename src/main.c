@@ -18,13 +18,14 @@ int main(int argc, const char * argv[]) {
 
     level = createLevel(3);
     
-    user = playerSetUp();
+    
 
     /* main game loop */
     while((ch =getch()) != 'q')
     {
         newPosition = handelInput(ch, user);
         checkPosition(newPosition, user, level->tiles);
+        moveMonsters(level);
     }
     
     

@@ -53,13 +53,14 @@ Monster * selectMonster(int level)
         break;
     }
 
-
+    
 }
 
 Monster * createMonster(char symbol, int health, int attack, int speed, int defence, int pathfinding)
 {
     Monster * newMonster;
     newMonster = malloc(sizeof(Monster));
+    
 
     newMonster->symbol = symbol;
     newMonster->health = health;
@@ -68,21 +69,70 @@ Monster * createMonster(char symbol, int health, int attack, int speed, int defe
     newMonster->defence = defence;
     newMonster->pathfinding = pathfinding;
 
+    sprintf(newMonster->string, "%c",symbol);
+
     return newMonster;
 }
 int setStartingPosition(Monster * monster, Room * room)
 {
-    char buffer[8];
 
-    monster->position.x = (random() % (room->width - 2)) + room->position.x;
-    monster->position.y = (random() % (room->height - 2)) + room->position.y;
+    monster->position = malloc(sizeof(Position));
 
-    sprintf(buffer, "%c", monster->symbol);
+    monster->position->x = (random() % (room->width - 2)) + room->position.x;
+    monster->position->y = (random() % (room->height - 2)) + room->position.y;
 
-    mvprintw(monster->position.y, monster->position.x, buffer);
+    
+
+    mvprintw(monster->position->y, monster->position->x, monster->string);
      
-
+    return 1;
 }
+
+int moveMonsters(Level * level)
+{
+    //int x;
+    for(int x = 0; x < level->numberOfMonsters; x++)
+    {
+        if(level->monsters[x]->pathfinding == 1)
+        {
+            /* random */
+        }
+        else
+        {
+            pathfindingSeek(level->monsters[x]->position, level->user->position);
+            mvprintw(level->monsters[x]->position->y,  level->monsters[x]->position->x, level->monsters[x]->string);
+        }
+        
+    }
+    return 1;
+}
+
+
+int pathfindingSeek(Position * start, Position * destination)
+{
+      /* step left */
+        if(abs(( start->x - 1) - destination->x) < abs(start->x - destination->x) && (mvinch(start->y, start->x - 1 )) == '.')
+        {
+            start->x = start->x - 1;
+        /* step rigth */
+        }else if(abs((start->x + 1) - destination->x) < abs(start->x - destination->x) && (mvinch(start->y, start->x + 1 )) == '.')
+        {
+            start->x = start->x + 1;
+        /* step down */
+        }else if(abs((start->y + 1) - destination->y) < abs(start->y - destination->y) && (mvinch(start->y + 1, start->x )) == '.')
+        {
+            start->y = start->y + 1;
+        /*step up*/
+        }else if(abs((start->y - 1) - destination->y) < abs(start->y - destination->y) && (mvinch(start->y - 1, start->x )) == '.')
+        {
+            start->y = start->y - 1;
+        }else
+        {
+            /* do nothing */
+        }
+        return 1;
+}
+
 
 
 /*
