@@ -85,7 +85,11 @@ int playerMove(Position * newPosition, Player * user,char ** level)
     user->position->x = newPosition->x;
     
     mvprintw(user->position->y, user->position->x, "@");
+<<<<<<< HEAD
     move(user->position->y, user->position-> x);
+=======
+    move(user->position->y, user->position->x);
+>>>>>>> 0650bb33b7d747a9ca265200fe5ddb34d0c015bc
     
     return 1;
 }
