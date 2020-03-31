@@ -18,10 +18,15 @@ Level * createLevel(int level)
     Level * newLevel;
     newLevel = malloc(sizeof(Level));
 
+   
     newLevel->level = level;
     newLevel->numberOfRooms = 3;
     newLevel->rooms = roomsSetUp();
     newLevel->tiles = saveLevelPositions();
+
+     newLevel->user = playerSetUp();
+
+    
 
     addMonsters(newLevel);
 

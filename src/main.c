@@ -7,8 +7,6 @@
 #include "rouge.h"
 
 int main(int argc, const char * argv[]) {
-    
-    Player * user;
     int ch;
     Position  * newPosition;
 
@@ -16,15 +14,15 @@ int main(int argc, const char * argv[]) {
     
     screenSetUp();
 
-    level = createLevel(3);
-    
-    user = playerSetUp();
+    level = createLevel(1);
 
     /* main game loop */
     while((ch =getch()) != 'q')
     {
-        newPosition = handelInput(ch, user);
-        checkPosition(newPosition, user, level->tiles);
+        newPosition = handelInput(ch, level->user);
+        checkPosition(newPosition, level->user, level->tiles);
+        moveMonsters(level);
+        move(level->user->position->y, level->user->position->x);
     }
     
     
