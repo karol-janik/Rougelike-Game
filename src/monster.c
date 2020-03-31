@@ -69,11 +69,7 @@ Monster * createMonster(char symbol, int health, int attack, int speed, int defe
     newMonster->defence = defence;
     newMonster->pathfinding = pathfinding;
 
-<<<<<<< HEAD
     sprintf(newMonster->string, "%c", symbol);
-=======
-    sprintf(newMonster->string, "%c",symbol);
->>>>>>> 0650bb33b7d747a9ca265200fe5ddb34d0c015bc
 
     return newMonster;
 }
@@ -84,7 +80,6 @@ int setStartingPosition(Monster * monster, Room * room)
 
     monster->position->x = (random() % (room->width - 2)) + room->position.x;
     monster->position->y = (random() % (room->height - 2)) + room->position.y;
-<<<<<<< HEAD
 
     
 
@@ -100,7 +95,7 @@ int moveMonsters(Level * level)
     {
         if(level->monsters[x]->pathfinding == 1)
         {
-          pathfindingRandom(level->monsters[x]->position);
+          //pathfindingRandom(level->monsters[x]->position);
         }
         else
         {
@@ -113,10 +108,7 @@ int moveMonsters(Level * level)
     return 1;
 }
 
-int pathfindingRandom(Position * position)
-{
-    
-}
+
 
 int pathfindingSeek(Position * start, Position * destination)
 {
@@ -146,94 +138,5 @@ int pathfindingSeek(Position * start, Position * destination)
         return 1;
         
     }
-=======
-
-    
-
-    mvprintw(monster->position->y, monster->position->x, monster->string);
-     
-    return 1;
-}
->>>>>>> 0650bb33b7d747a9ca265200fe5ddb34d0c015bc
-
-int moveMonsters(Level * level)
-{
-    //int x;
-    for(int x = 0; x < level->numberOfMonsters; x++)
-    {
-        if(level->monsters[x]->pathfinding == 1)
-        {
-            /* random */
-        }
-        else
-        {
-            pathfindingSeek(level->monsters[x]->position, level->user->position);
-            mvprintw(level->monsters[x]->position->y,  level->monsters[x]->position->x, level->monsters[x]->string);
-        }
-        
-    }
-    return 1;
 }
 
-
-<<<<<<< HEAD
-=======
-int pathfindingSeek(Position * start, Position * destination)
-{
-      /* step left */
-        if(abs(( start->x - 1) - destination->x) < abs(start->x - destination->x) && (mvinch(start->y, start->x - 1 )) == '.')
-        {
-            start->x = start->x - 1;
-        /* step rigth */
-        }else if(abs((start->x + 1) - destination->x) < abs(start->x - destination->x) && (mvinch(start->y, start->x + 1 )) == '.')
-        {
-            start->x = start->x + 1;
-        /* step down */
-        }else if(abs((start->y + 1) - destination->y) < abs(start->y - destination->y) && (mvinch(start->y + 1, start->x )) == '.')
-        {
-            start->y = start->y + 1;
-        /*step up*/
-        }else if(abs((start->y - 1) - destination->y) < abs(start->y - destination->y) && (mvinch(start->y - 1, start->x )) == '.')
-        {
-            start->y = start->y - 1;
-        }else
-        {
-            /* do nothing */
-        }
-        return 1;
-}
-
-
->>>>>>> 0650bb33b7d747a9ca265200fe5ddb34d0c015bc
-
-/*
-
-1Spider
-    symbol: X
-    levels: 1-3
-    health: 2
-    attack: 1
-    speed: 1
-    defence: 1
-    pathfinding: 1  (random)
-
-2Goblin:
-    symbol: G
-    levels: 1-5
-    health: 5
-    attack: 3
-    speed: 1
-    defence: 1
-    pathfinding: 2  (seeking)
-
-3Troll:
-    symbol: T
-    levels: 4-6
-    health: 15
-    attack: 5
-    speed: 1
-    defence: 1
-    pathfinding: 1  (random)
-
-
-*/
