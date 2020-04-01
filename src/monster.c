@@ -53,6 +53,7 @@ Monster * selectMonster(int level)
         break;
     }
 
+    return NULL;
     
 }
 
@@ -68,11 +69,22 @@ Monster * createMonster(char symbol, int health, int attack, int speed, int defe
     newMonster->speed = speed;
     newMonster->defence = defence;
     newMonster->pathfinding = pathfinding;
+    newMonster->alive = 1;
 
     sprintf(newMonster->string, "%c", symbol);
 
     return newMonster;
 }
+
+int killMonster(Monster * monster)
+{
+    mvprintw(monster->position->y, monster->position->x, ".");
+    monster->alive = 0;
+
+    return 1;
+}
+
+
 int setStartingPosition(Monster * monster, Room * room)
 {
 
@@ -85,7 +97,7 @@ int setStartingPosition(Monster * monster, Room * room)
 
     mvprintw(monster->position->y, monster->position->x,monster->string);
      
-     return 1;
+     return  1;
 
 }
 
@@ -93,16 +105,19 @@ int moveMonsters(Level * level)
 {
     for(int x = 0; x  < level->numberOfMonsters; x++ )
     {
+        if(level->monsters[x]->alive == 0)
+            continue;
+        
+        mvprintw(level->monsters[x]->position->y, level->monsters[x]->position->x, ".");
         if(level->monsters[x]->pathfinding == 1)
         {
           pathfindingRandom(level->monsters[x]->position);
         }
         else
         {
-            mvprintw(level->monsters[x]->position->y, level->monsters[x]->position->x, ".");
             pathfindingSeek(level->monsters[x]->position, level->user->position);
-            mvprintw(level->monsters[x]->position->y, level->monsters[x]->position->x, level->monsters[x]->string);
         }
+        mvprintw(level->monsters[x]->position->y, level->monsters[x]->position->x, level->monsters[x]->string);
         
     }
     return 1;
@@ -118,7 +133,7 @@ int pathfindingRandom(Position * position)
     {
     /*step up */
     case 0:
-        if (mwinch(position->y - 1, position->x) == '.')
+        if (mvinch(position->y - 1, position->x) == '.')
         {
             position->y = position->y - 1;
         }
@@ -127,7 +142,7 @@ int pathfindingRandom(Position * position)
 
     /* step down */
     case 1:
-        if (mwinch(position->y + 1, position->x) == '.')
+        if (mvinch(position->y + 1, position->x) == '.')
         {
             position->y = position->y + 1;
         }
@@ -194,3 +209,14 @@ int pathfindingSeek(Position * start, Position * destination)
     }
 }
 
+Monster * getMonsterAt(Position * position, Monster ** monsters)
+{
+    for (int x = 0; x < 6; x++)
+    {
+        if( (position->y == monsters[x]->position->y) && (position->x == monsters[x]->position->x) )
+            return monsters[x];         
+    } 
+
+    return NULL;
+    
+}

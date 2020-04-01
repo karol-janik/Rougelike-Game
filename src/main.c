@@ -20,7 +20,7 @@ int main(int argc, const char * argv[]) {
     while((ch =getch()) != 'q')
     {
         newPosition = handelInput(ch, level->user);
-        checkPosition(newPosition, level->user, level->tiles);
+        checkPosition(newPosition, level);
         moveMonsters(level);
         move(level->user->position->y, level->user->position->x);
     }
