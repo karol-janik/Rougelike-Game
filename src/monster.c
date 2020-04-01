@@ -95,7 +95,7 @@ int moveMonsters(Level * level)
     {
         if(level->monsters[x]->pathfinding == 1)
         {
-          //pathfindingRandom(level->monsters[x]->position);
+          pathfindingRandom(level->monsters[x]->position);
         }
         else
         {
@@ -108,7 +108,61 @@ int moveMonsters(Level * level)
     return 1;
 }
 
+int pathfindingRandom(Position * position)
+{
+    int random;
 
+    random = rand() % 5;
+
+    switch (random)
+    {
+    /*step up */
+    case 0:
+        if (mwinch(position->y - 1, position->x) == '.')
+        {
+            position->y = position->y - 1;
+        }
+        break;
+
+
+    /* step down */
+    case 1:
+        if (mwinch(position->y + 1, position->x) == '.')
+        {
+            position->y = position->y + 1;
+        }
+        break;
+
+
+    /*step left  */ 
+    case 2:
+     if (mvinch(position->y, position->x - 1) == '.')
+        {
+            position->x = position->x - 1;
+        }
+        break;
+
+
+    /* step right */
+    case 3:
+     if (mvinch(position->y, position->x + 1) == '.')
+        {
+            position->x = position->x + 1;
+        }
+        break;
+
+    /* do nothing */
+    case 4:
+        break;
+    
+    default:
+        break;
+    }
+
+    return 1;
+
+
+}
 
 int pathfindingSeek(Position * start, Position * destination)
 {
