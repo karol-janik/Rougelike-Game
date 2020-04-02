@@ -1,6 +1,8 @@
 #include "rouge.h"
 
 
+
+
 Player * playerSetUp()
 {
     Player *  newPlayer;

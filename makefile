@@ -6,9 +6,9 @@ SRCDIR = ./src/
 
 SOURCES = $(SRCDIR)*.c
 
-all: rouge run clean
+all: rouge  
 
-rouge:
+rouge: $(SOURCES)
 	$(CC) $(SOURCES) $(CFLAGS) -o $@
 run:
 	./rouge
