@@ -15,10 +15,12 @@ int main(int argc, const char * argv[]) {
     screenSetUp();
 
     level = createLevel(1);
+     printGameHub(level);
 
     /* main game loop */
     while((ch =getch()) != 'q')
     {
+        printGameHub(level);
         newPosition = handelInput(ch, level->user);
         checkPosition(newPosition, level);
         moveMonsters(level);
@@ -31,15 +33,5 @@ int main(int argc, const char * argv[]) {
     return 0;
 }
 
-int screenSetUp()
-{
-    initscr();
-    noecho();
-    refresh();
-    
-    srand(time(NULL));
-    
-    return 1;
-}
 
 
