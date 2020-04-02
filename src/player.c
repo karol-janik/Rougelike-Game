@@ -7,18 +7,28 @@ Player * playerSetUp()
     newPlayer = malloc(sizeof(Player));
     newPlayer->position = malloc(sizeof(Position));
     
-    newPlayer->position->x = 14;
-    newPlayer->position->y = 14;
+    
     newPlayer->health = 20;
     newPlayer->attack = 1;
     newPlayer->gold = 0;
     newPlayer->exp = 0;
     newPlayer->maxHealth = 20;
 
-    mvprintw(newPlayer->position->y,newPlayer->position->x,".");
-    move(newPlayer->position->y, newPlayer->position->x);
+    
     
     return newPlayer;
+}
+
+int placePlayer(Room ** rooms, Player * user)
+{
+    user->position->x = rooms[3]->position.x + 1;
+    user->position->y = rooms[3]->position.y + 1;
+
+    mvprintw(user->position->y,user->position->x,"@");
+    move(user->position->y, user->position->x);
+
+    return 1;
+
 }
 
 Position * handelInput(int input, Player * user)
