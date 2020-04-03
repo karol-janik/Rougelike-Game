@@ -1,4 +1,5 @@
 #include "rouge.h"
+#include "utils.h"
 
 
 /*
@@ -54,6 +55,7 @@ Room **  roomsSetUp()
    
     
   //  connectDoors(rooms[0]->doors[3], rooms[2]->doors[1]);
+  pathFind(rooms[0]->doors[3], rooms[2]->doors[1]);
     
  //   connectDoors(rooms[1]->doors[2], rooms[0]->doors[0]);
     
@@ -68,10 +70,10 @@ char ** saveLevelPositions()
     char ** positions;
     positions = malloc(sizeof(char *) * 25);
     
-    for(y = 0;  y < 25; y++)
+    for(y = 0;  y < MAX_HEIGHT; y++)
     {
         positions[y] = malloc(sizeof(char) * 100);
-        for(x = 0; x < 100; x ++)
+        for(x = 0; x < MAX_WIDTH; x ++)
         {
             positions[y][x] = (char)mvinch(y, x);
         }

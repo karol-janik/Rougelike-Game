@@ -8,6 +8,8 @@
 #include <time.h>
 #include <math.h>
 
+/*** struct definitions ***/
+
 typedef struct  Level
 {
     char  ** tiles;
@@ -63,6 +65,9 @@ typedef struct Monster
     
 }Monster;
 
+/*** Global variables ***/
+int MAX_HEIGHT;
+int MAX_WIDTH;
 
 /* screen functions */
 int screenSetUp();

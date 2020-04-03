@@ -6,8 +6,14 @@
 //
 #include "rouge.h"
 
-int main(int argc, const char * argv[]) {
+int main(int argc, const char * argv[]) 
+{
+
     int ch;
+
+    MAX_HEIGHT = 25;
+    MAX_WIDTH  = 100;
+
     Position  * newPosition;
 
     Level * level;
