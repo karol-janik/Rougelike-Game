@@ -7,12 +7,20 @@ void addPositionYX(int ** frontier, int frontierCount ,int y, int x)
     frontier[frontierCount][1] = x;
 
 }
+int checkP(int y, int x)
+{
+    char temp = mvinch(y, x); 
 
+    if(temp == '.' || temp == '|'  || temp == '-')
+        return 0;
+    else
+        return 1;
+}
 int addNeighbors(int ** frontier, int frontierCount ,int *** cameFrom, int y, int x)
 {
     // north 
 
-    if(y > 0 && cameFrom[y - 1][x][0] < 0 )
+    if(y > 0 && cameFrom[y - 1][x][0] < 0 && checkP(y - 1, x))
     {
         addPositionYX(frontier, frontierCount, y - 1, x);
         frontierCount++;
@@ -23,7 +31,7 @@ int addNeighbors(int ** frontier, int frontierCount ,int *** cameFrom, int y, in
     // south
 
 
-    if(y < ( MAX_HEIGHT - 1) && cameFrom[y + 1][x][0] <  0 )
+    if(y < ( MAX_HEIGHT - 1) && cameFrom[y + 1][x][0] <  0 && checkP(y + 1, x) )
     {
         addPositionYX(frontier, frontierCount, y + 1, x);
         frontierCount++;
@@ -33,7 +41,7 @@ int addNeighbors(int ** frontier, int frontierCount ,int *** cameFrom, int y, in
 
     //east
 
-    if(x < ( MAX_WIDTH - 1) && cameFrom[y][x + 1][0] < 0 )
+    if(x < ( MAX_WIDTH - 1) && cameFrom[y][x + 1][0] < 0 && checkP(y , x + 1))
     {
         addPositionYX(frontier, frontierCount, y, x + 1);
         frontierCount++;
@@ -43,7 +51,7 @@ int addNeighbors(int ** frontier, int frontierCount ,int *** cameFrom, int y, in
 
     //west
 
-    if(x > 0 && cameFrom[y][x - 1] [0] <  0 )
+    if(x > 0 && cameFrom[y][x - 1] [0] <  0 && checkP(y , x - 1) )
     {
         addPositionYX(frontier, frontierCount, y, x - 1);
         frontierCount++;
@@ -57,6 +65,7 @@ int addNeighbors(int ** frontier, int frontierCount ,int *** cameFrom, int y, in
 void pathFind(Position * start, Position * end)
 {
     int x, y;
+    int tempY;
     int ** frontier = malloc(sizeof(int *) * MAX_HEIGHT * MAX_WIDTH);
     int *** cameFrom = malloc(sizeof(int**) * MAX_HEIGHT);
 
@@ -105,8 +114,9 @@ void pathFind(Position * start, Position * end)
 
     while(y != start->y || x != start->x)
     {
-        y = cameFrom[y][x][0];
-        x = cameFrom[y][x][1];
+        tempY = y;
+        y = cameFrom[tempY][x][0];
+        x = cameFrom[tempY][x][1];
         mvprintw(y, x, "+");
         getch();
     }
