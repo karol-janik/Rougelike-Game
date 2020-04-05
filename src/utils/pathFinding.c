@@ -118,7 +118,6 @@ void pathFind(Position * start, Position * end)
         y = cameFrom[tempY][x][0];
         x = cameFrom[tempY][x][1];
         mvprintw(y, x, "+");
-        getch();
     }
 
 
